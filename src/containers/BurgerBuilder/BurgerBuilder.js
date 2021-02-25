@@ -102,31 +102,6 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    // alert('You continue!');
-    /* this.setState({ loading: true });
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Sathya',
-                address: {
-                    street: 'test street',
-                    zipCode: '41351',
-                    country: 'India'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        };
-        axios.post('/orders.json', order) // .json is required for Firebase. It is the endpoint we target for the Firebase to function correctly
-            .then(response => {
-                console.log(response);
-                this.setState({ loading: false, purchasing: false });
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({ loading: false, purchasing: false })
-            }); */
     const queryParams = [];
     for (let i in this.state.ingredients) {
       queryParams.push(
@@ -135,6 +110,7 @@ class BurgerBuilder extends Component {
           encodeURIComponent(this.state.ingredients[i])
       );
     }
+    queryParams.price('price=' + this.state.totalPrice);
     const queryString = queryParams.join('&');
     this.props.history.push({
       pathname: '/checkout',
