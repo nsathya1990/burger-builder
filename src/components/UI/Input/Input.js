@@ -4,7 +4,6 @@ import classes from './Input.css';
 
 const input = (props) => {
   let inputElement = null;
-
   switch (props.elementType) {
     case 'input':
       inputElement = (
@@ -12,6 +11,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={(event)=>this.inputChangedHandler(event)}
         />
       );
       break;
@@ -21,6 +21,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={(event)=>this.inputChangedHandler(event)}
         />
       );
       break;
@@ -30,6 +31,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={(event)=>this.inputChangedHandler(event)}
         />
       );
   }
