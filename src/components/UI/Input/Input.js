@@ -11,7 +11,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
-          onChange={(event)=>this.inputChangedHandler(event)}
+          onChange={(event) => this.inputChangedHandler(event)}
         />
       );
       break;
@@ -21,8 +21,22 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
-          onChange={(event)=>this.inputChangedHandler(event)}
+          onChange={(event) => this.inputChangedHandler(event)}
         />
+      );
+      break;
+    case 'select':
+      inputElement = (
+        <select
+          className={classes.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={(event) => this.inputChangedHandler(event)}
+        >
+          {props.elementConfig.options.map((option) => (
+            <option key={option.value} value={option.value}>{option.displayValue}</option>
+          ))}
+        </select>
       );
       break;
     default:
@@ -31,7 +45,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
-          onChange={(event)=>this.inputChangedHandler(event)}
+          onChange={(event) => this.inputChangedHandler(event)}
         />
       );
   }
