@@ -11,7 +11,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
-          onChange={(event) => this.inputChangedHandler(event)}
+          onChange={props.changed}
         />
       );
       break;
@@ -21,7 +21,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
-          onChange={(event) => this.inputChangedHandler(event)}
+          onChange={props.changed}
         />
       );
       break;
@@ -31,10 +31,12 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
-          onChange={(event) => this.inputChangedHandler(event)}
+          onChange={props.changed}
         >
           {props.elementConfig.options.map((option) => (
-            <option key={option.value} value={option.value}>{option.displayValue}</option>
+            <option key={option.value} value={option.value}>
+              {option.displayValue}
+            </option>
           ))}
         </select>
       );
@@ -45,7 +47,7 @@ const input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
-          onChange={(event) => this.inputChangedHandler(event)}
+          onChange={props.changed}
         />
       );
   }
