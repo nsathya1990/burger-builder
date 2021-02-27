@@ -4,9 +4,11 @@ import classes from './Input.css';
 
 const input = (props) => {
   let inputElement = null;
+  let validationError = null;
   const inputClasses = [classes.InputElement];
 
   if (props.invalid && props.shouldValidate && props.touched) {
+    validationError = <p className={classes.ValidationError}>Please enter a valid value!</p>;
     inputClasses.push(classes.Invalid);
   }
 
@@ -61,6 +63,7 @@ const input = (props) => {
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>
       {inputElement}
+      {validationError}
     </div>
   );
 };
