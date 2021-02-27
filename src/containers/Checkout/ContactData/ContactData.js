@@ -18,6 +18,10 @@ class ContactData extends Component {
           placeholder: 'Your Name',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       street: {
         elementType: 'input',
@@ -26,6 +30,10 @@ class ContactData extends Component {
           placeholder: 'Street',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       zipCode: {
         elementType: 'input',
@@ -34,6 +42,12 @@ class ContactData extends Component {
           placeholder: 'ZIP Code',
         },
         value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5,
+        },
+        valid: false,
       },
       country: {
         elementType: 'input',
@@ -42,6 +56,10 @@ class ContactData extends Component {
           placeholder: 'Country',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       email: {
         elementType: 'input',
@@ -50,6 +68,10 @@ class ContactData extends Component {
           placeholder: 'Your E-Mail',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       deliveryMethod: {
         elementType: 'select',
@@ -60,10 +82,28 @@ class ContactData extends Component {
           ],
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
     },
     loading: false,
   };
+
+  checkValidity(value, rules) {
+    let isValid = false;
+    if (rules.required) {
+      isValid = value.trim() !== '';
+    }
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength;
+    }
+    if (rules.maxLength) {
+      isValid = value.length <= rules.minLength;
+    }
+    return isValid;
+  }
 
   orderHandler = (event) => {
     event.preventDefault();
@@ -74,13 +114,11 @@ class ContactData extends Component {
         formElementIdentifier
       ].value;
     }
-    console.log(formData);
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
       orderData: formData,
     };
-    console.log(order);
     axios
       .post('/orders.json', order) // .json is required for Firebase. It is the endpoint we target for the Firebase to function correctly
       .then((response) => {
@@ -98,7 +136,12 @@ class ContactData extends Component {
     };
     const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
     updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = this.checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
     updatedOrderForm[inputIdentifier] = updatedFormElement;
+    console.log(updatedFormElement);
     this.setState({ orderForm: updatedOrderForm });
   };
 
