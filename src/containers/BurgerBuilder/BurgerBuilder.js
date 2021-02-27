@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import Aux from '../../hoc/Auxiliary/Auxiliary';
-
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+
 import axios from '../../axios-orders'; // this is going to use our configured axios instance
+
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 
 const INGREDIENT_PRICES = {
@@ -44,8 +44,7 @@ class BurgerBuilder extends Component {
       });
   }
 
-  updatePurchaseState(updatedIngredients) {
-    const ingredients = updatedIngredients;
+  updatePurchaseState(ingredients) {
     const sum = Object.keys(ingredients)
       .map((igKey) => {
         return ingredients[igKey];
@@ -110,7 +109,7 @@ class BurgerBuilder extends Component {
           encodeURIComponent(this.state.ingredients[i])
       );
     }
-    queryParams.price('price=' + this.state.totalPrice);
+    queryParams.push('price=' + this.state.totalPrice);
     const queryString = queryParams.join('&');
     this.props.history.push({
       pathname: '/checkout',
@@ -158,7 +157,7 @@ class BurgerBuilder extends Component {
       orderSummary = <Spinner />;
     }
     return (
-      <Aux>
+      <Auxiliary>
         <Modal
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
@@ -166,7 +165,7 @@ class BurgerBuilder extends Component {
           {orderSummary}
         </Modal>
         {burger}
-      </Aux>
+      </Auxiliary>
     );
   }
 }
