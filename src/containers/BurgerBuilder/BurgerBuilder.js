@@ -18,7 +18,7 @@ const INGREDIENT_PRICES = {
   bacon: 0.7,
 };
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     ingredients: null,
     totalPrice: 4,
@@ -29,7 +29,6 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     axios
       .get(
         'https://react-my-burger-9d682-default-rtdb.firebaseio.com/ingredients.json'
