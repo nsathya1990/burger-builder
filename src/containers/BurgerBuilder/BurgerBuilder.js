@@ -29,7 +29,7 @@ export class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    axios
+    /* axios
       .get(
         'https://react-my-burger-9d682-default-rtdb.firebaseio.com/ingredients.json'
       )
@@ -40,7 +40,7 @@ export class BurgerBuilder extends Component {
       })
       .catch((error) => {
         this.setState({ error: true });
-      });
+      }); */
   }
 
   updatePurchaseState(ingredients) {
