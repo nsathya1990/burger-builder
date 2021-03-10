@@ -8,7 +8,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
-import axios from '../../axios-orders'; // this is going to use our configured axios instance
+import axios from '../../axios-orders';
 
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 
@@ -17,23 +17,9 @@ import * as burgerBuilderActions from '../../store/actions/index';
 export class BurgerBuilder extends Component {
     state = {
         purchasing: false,
-        loading: false,
-        error: false,
     };
 
     componentDidMount() {
-    axios
-      .get(
-        'https://react-my-burger-9d682-default-rtdb.firebaseio.com/ingredients.json'
-      )
-      .then((response) => {
-        this.setState({
-          ingredients: response.data,
-        });
-      })
-      .catch((error) => {
-        this.setState({ error: true });
-      });
     }
 
     updatePurchaseState(ingredients) {
@@ -95,9 +81,9 @@ export class BurgerBuilder extends Component {
                 />
             );
         }
-        if (this.state.loading) {
+        /* if (this.state.loading) {
             orderSummary = <Spinner />;
-        }
+        } */
         return (
             <Auxiliary>
                 <Modal
