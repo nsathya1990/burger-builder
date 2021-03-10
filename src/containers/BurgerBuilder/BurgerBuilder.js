@@ -12,7 +12,7 @@ import axios from '../../axios-orders'; // this is going to use our configured a
 
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 
-import * as actionTypes from '../../store/actions';
+import * as burgerBuilderActions from '../../store/actions/index';
 
 export class BurgerBuilder extends Component {
     state = {
@@ -122,15 +122,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onIngredientAdded: (ingName) =>
-            dispatch({
-                type: actionTypes.ADD_INGREDIENT,
-                ingredientName: ingName,
-            }),
+            dispatch(burgerBuilderActions.addIngredient(ingName)),
         onIngredientRemoved: (ingName) =>
-            dispatch({
-                type: actionTypes.REMOVE_INGREDIENT,
-                ingredientName: ingName,
-            }),
+            dispatch(burgerBuilderActions.removeIngredient(ingName)),
     };
 };
 
