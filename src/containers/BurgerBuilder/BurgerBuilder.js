@@ -12,7 +12,7 @@ import axios from '../../axios-orders';
 
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 
-import * as burgerBuilderActions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
 export class BurgerBuilder extends Component {
     state = {
@@ -43,6 +43,7 @@ export class BurgerBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     };
 
@@ -103,17 +104,18 @@ const mapStateToProps = (state) => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onIngredientAdded: (ingName) =>
-            dispatch(burgerBuilderActions.addIngredient(ingName)),
+            dispatch(actions.addIngredient(ingName)),
         onIngredientRemoved: (ingName) =>
-            dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+            dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit()),
     };
 };
 
