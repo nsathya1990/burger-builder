@@ -124,15 +124,7 @@ class ContactData extends Component {
             price: this.props.price,
             orderData: formData,
         };
-        axios
-            .post('/orders.json', order) // .json is required for Firebase. It is the endpoint we target for the Firebase to function correctly
-            .then((response) => {
-                this.setState({ loading: false });
-                this.props.history.push('/');
-            })
-            .catch((error) => {
-                this.setState({ loading: false });
-            });
+        
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
