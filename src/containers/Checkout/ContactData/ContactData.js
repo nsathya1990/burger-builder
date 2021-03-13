@@ -115,19 +115,16 @@ class ContactData extends Component {
 
     orderHandler = (event) => {
         event.preventDefault();
-        // this.setState({ loading: true });
         const formData = {};
         for (let formElementIdentifier in this.state.orderForm) {
-            formData[formElementIdentifier] = this.state.orderForm[
-                formElementIdentifier
-            ].value;
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
             orderData: formData,
         };
-        this.props.onOrderBurger(order);
+        this.props.onOrderBurger(order, this.props.token);
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -145,8 +142,7 @@ class ContactData extends Component {
 
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
-            formIsValid =
-                updatedOrderForm[inputIdentifier].valid && formIsValid;
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
         this.setState({ orderForm: updatedOrderForm, formIsValid });
     };
@@ -172,9 +168,7 @@ class ContactData extends Component {
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
                         value={formElement.config.value}
-                        changed={(event) =>
-                            this.inputChangedHandler(event, formElement.id)
-                        }
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
                 <Button btnType='Success' disabled={!this.state.formIsValid}>
@@ -201,17 +195,14 @@ const mapStateToProps = (state) => {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         loading: state.order.loading,
+        token: state.auth.token,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onOrderBurger: (orderData) =>
-            dispatch(actions.purchaseBurger(orderData)),
+        onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token)),
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ErrorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorHandler(ContactData, axios));
